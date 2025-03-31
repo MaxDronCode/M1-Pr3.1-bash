@@ -113,7 +113,8 @@
 
 # echo ""
 
-echo "- 8 - Script que trenca un fitxer en parts..."
+echo "- 9 - Script que reb com a paràmetre el nom d'un directori i obté com a resultat un únic fitxer..."
+
 
 
 
