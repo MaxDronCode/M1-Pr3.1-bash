@@ -99,4 +99,36 @@
 
 # echo ""
 
+# echo "- 4 - Crea un directori on hi hagin diversos (almenys tres) fitxers, on el nom del fitxer
+# sigui el de l’usuari a crear i dintre del fitxer hi hagi les carpetes que ha de tindre."
+
+# echo "  Introdueix el teu nom:"
+# read userName
+
+# num=0
+
+# createDir(){
+#   mkdir "./$1$2"
+# }
+# createFile(){
+#   echo -e "Descargas\nDocumentos\nEscritorio\nImágenes\nMúsica\nPlantillas\nPúblico\nsnap\nVídeos" > "$1$2.txt"
+# }
+
+# until createDir "$userName" "$num" 2> /dev/null; do
+#   num=$((num + 1))
+# done
+
+# echo "  S'ha creat directori amb nom: $userName$num"
+
+# cd "./$userName$num"
+
+# num=0
+# for element in 1 2 3; do
+#   createFile "$userName" "$num" 2> /dev/null
+#   num=$((num + 1))
+# done
+
+# echo ""
+
+
 
