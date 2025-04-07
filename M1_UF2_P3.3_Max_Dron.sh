@@ -99,4 +99,7 @@
 
 # echo ""
 
+echo "- 4 - Crea un directori on hi hagin diversos (almenys tres) fitxers, on el nom del fitxer
+sigui el de l’usuari a crear i dintre del fitxer hi hagi les carpetes que ha de tindre."
+
 
