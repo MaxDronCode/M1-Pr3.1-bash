@@ -130,5 +130,99 @@
 
 # echo ""
 
+echo "- 5 - Crea un directori on hi hagin diversos (almenys tres) fitxers, on el nom del fitxer..."
+checkGroup(){
+  grep "$1" /etc/group
+}
+createGroup(){
+  sudo groupadd "$1"
+}
+checkUser(){
+  grep $1 /etc/passwd
+}
+createUser(){
+  sudo useradd -G -m "$3" "$1"
+  echo "$1:$2" | sudo chpasswd
+}
+createDir(){
+  rm -rf $1
+  mkdir $1
+  sudo chmod 775 $1
+}
+assignPermissions(){
+  sudo chown :$1 $2
+  sudo chmod g+$3 $2
+}
+
+userTriesToWrite(){
+  sudo -u $1 touch ./$2/test.txt
+  return $?
+}
+
+group1="oficina1"
+group2="oficina2"
+user1="Oriol"
+user2="Pau"
+user3="alba"
+user4="nerea"
+dir1="marketing"
+dir2="ventas"
+permissions="rwx"
+
+# Crear los grupos
+if ! checkGroup "$group1"; then
+  createGroup "$group1"
+fi
+if ! checkGroup "$group2"; then
+  createGroup "$group2"
+fi
+
+# Crear los usuarios con nombre, contraseña y grupo
+if ! checkUser $user1;then
+  createUser $user1 $user1 $group1
+fi
+if ! checkUser $user2;then
+  createUser $user2 $user2 $group1
+fi
+if ! checkUser $user3;then
+  createUser $user3 $user3 $group2
+fi
+if ! checkUser $user4;then
+  createUser $user4 $user4 $group2
+fi
+  
+
+# Crear los directorios
+createDir $dir1
+createDir $dir2
+
+# Asignar los permisos a los grupos sobre los dirs
+assignPermissions $group1 $dir1 $permissions
+assignPermissions $group2 $dir2 $permissions
+
+# Comprovaciones
+if userTriesToWrite $user1 $dir1; then
+  echo "  User1 ha pogut escriure en dir1, com ha de ser."
+else
+  echo "  User1 no ha pogut escriure en dir1, algo no va bé."
+fi
+
+if ! userTriesToWrite $user1 $dir2; then
+  echo "  User1 no ha pogut escriure en dir2, com ha de ser."
+else
+  echo "  User1 ha pogut escriure en dir2, algo no va bé."
+fi
+
+if userTriesToWrite $user3 $dir2; then
+  echo "  User3 ha pogut escriure en dir2, com ha de ser."
+else
+  echo "  User3 no ha pogut escriure en dir2, algo no va bé."
+fi
+
+if ! userTriesToWrite $user3 $dir1; then
+  echo "  User3 no ha pogut escriure en dir1, com ha de ser."
+else
+  echo "  User3 ha pogut escriure en dir1, algo no va bé."
+fi
 
 
